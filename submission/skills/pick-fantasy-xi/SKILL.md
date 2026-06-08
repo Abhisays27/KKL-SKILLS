@@ -93,6 +93,39 @@ Formation preference:
 Diversify only after expected value is close. Do not force diversity if it
 causes a weaker XI, but avoid overloading fragile or uncertain teams.
 
+## Formation Repair Rule
+
+Build and validate the XI from official `position` values in
+`game-board/players.json`; never infer position from player name, real-world role,
+club usage, or strategy text.
+
+Before final output, create a position count for the selected IDs:
+`GK`, `DEF`, `MID`, and `FWD`. If the count is invalid, repair the XI before
+returning JSON. Never submit an invalid formation.
+
+Repair in this order:
+
+1. If goalkeeper count is not exactly 1, keep the highest-ranked GK or add the
+   highest-ranked available GK, replacing the lowest-ranked player from an
+   overfilled position.
+2. If defenders are fewer than 3, add the highest-ranked available DEF and
+   remove the lowest-ranked player from an overfilled position.
+3. If midfielders are fewer than 3, add the highest-ranked available MID and
+   remove the lowest-ranked player from an overfilled position.
+4. If forwards are fewer than 1, add the highest-ranked available FWD and remove
+   the lowest-ranked player from an overfilled position.
+5. If defenders are more than 5, remove the lowest-ranked extra DEF and replace
+   with the best available player from an underfilled or valid position.
+6. If midfielders are more than 5, remove the lowest-ranked extra MID and
+   replace with the best available player from an underfilled or valid position.
+7. If forwards are more than 3, remove the lowest-ranked extra FWD and replace
+   with the best available MID first, then DEF if midfield is already strong.
+
+After each repair, recount positions from `players.json`. Repeat until the XI is
+exactly 11 unique eligible IDs with exactly 1 GK, 3-5 DEF, 3-5 MID, and 1-3 FWD.
+If no valid repair is possible, choose the safest standard formation available
+from the board in this order: 3-4-3, 4-4-2, 4-3-3, 5-3-2.
+
 ## Risk Play Method
 
 Risk Play is optional. Choose `null` when confidence is not clear.
@@ -143,7 +176,8 @@ Before returning JSON, check:
 - `fantasy_xi` has exactly 11 unique player IDs.
 - every player ID exists in `game-board/players.json`.
 - every selected player is eligible for today's board.
-- formation is exactly 1 GK, 3-5 DEF, 3-5 MID, and 1-3 FWD.
+- formation is exactly 1 GK, 3-5 DEF, 3-5 MID, and 1-3 FWD after
+  applying the Formation Repair Rule.
 - `team_id` matches the prompt or official run identity.
 - `matchday_id` matches `game-board/matchday.json` or the prompt.
 - `risk_play` is either `null` or a valid claim from `claim-catalog.json`.
@@ -163,6 +197,8 @@ Common mistakes to avoid:
 - do not pick players outside today's eligible list
 - do not combine a match ID with a team or player from another match
 - do not submit more or fewer than 11 players
+- do not submit 4 or more forwards; replace the lowest-ranked extra forward with
+  the best available midfielder or defender before output
 - do not wrap the answer in Markdown fences
 - do not rely on partial validity: invalid identity rejects scoring, invalid
   Fantasy XI scores 0, and invalid Risk Play is ignored
