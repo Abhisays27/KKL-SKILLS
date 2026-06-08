@@ -87,8 +87,10 @@ If Risk Play is skipped, missing, invalid, or `null`, no previous Risk Play is
 reused.
 
 Check `standings-before.json` before deciding. Risk Play is based on team
-points before the matchday. Use lower-risk claims when protecting rank and only
-increase risk when standings show the team must climb.
+points before the matchday. If the team is missing from standings, treat it as a
+new 50-point team with unknown rank rather than skipping solely for being
+unranked. Use lower-risk claims when protecting rank and only increase risk when
+standings show the team must climb.
 
 Risk posture:
 

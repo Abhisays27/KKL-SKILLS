@@ -103,8 +103,10 @@ If standings show team points at 0 or below, skip Risk Play because the stake is
 0.
 
 Compute the team's point gap from `game-board/standings-before.json`. If a new
-team has no prior standing, treat the starting balance as 50 points. Use stake
-percentages only for internal decision quality; never output stake fields.
+team has no prior standing, treat the starting balance as 50 points. Missing
+rank is not by itself a reason to skip Risk Play; evaluate Green claims normally
+from the board evidence. Use stake percentages only for internal decision
+quality; never output stake fields.
 
 Use standings posture before choosing risk:
 
@@ -167,21 +169,16 @@ Common mistakes to avoid:
 
 ## Output
 
-For normal daily play, return the raw JSON shape below. Replace placeholders
-with official IDs. Never copy placeholder values from this example. Do not
-output Markdown code fences, introductory text, comments, or trailing
-explanation.
+For normal daily play, return one raw JSON object that follows
+`output-format/daily-submission.schema.json`. Use
+`output-format/examples/daily-submission.json` only as a shape reference, never
+as a source of IDs or values. Do not output Markdown code fences, introductory
+text, comments, or trailing explanation.
 
-{
-  "team_id": "EXACT_TEAM_ID",
-  "matchday_id": "EXACT_MATCHDAY_ID",
-  "fantasy_xi": ["ID1", "ID2", "ID3", "ID4", "ID5", "ID6", "ID7", "ID8", "ID9", "ID10", "ID11"],
-  "risk_play": null,
-  "strategy": "Single line explanation of formation choice and risk posture."
-}
-
-If `risk_play` is active, replace `null` with the exact claim object required by
-`output-format/` and `claim-catalog.json`, with no stake fields.
+The daily object should use the five-key contract from this skill unless the
+active schema says otherwise: `team_id`, `matchday_id`, `fantasy_xi`,
+`risk_play`, and `strategy`. If `risk_play` is active, use the exact claim object
+required by `output-format/` and `claim-catalog.json`, with no stake fields.
 
 If the prompt or output schema for the day requests a bracket answer, follow
-that schema exactly. Otherwise, use the five-key daily answer contract above.
+that schema exactly. Otherwise, use the daily answer contract above.

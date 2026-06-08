@@ -48,8 +48,10 @@ Runtime constraints:
 Default to `null` unless the board provides clear evidence.
 
 Compute the team's point gap from `game-board/standings-before.json`. If a new
-team has no prior standing, treat the starting balance as 50 points. Use stake
-percentages only for internal decision quality; never output stake fields.
+team has no prior standing, treat the starting balance as 50 points. Missing
+rank is not by itself a reason to skip Risk Play; evaluate Green claims normally
+from the board evidence. Use stake percentages only for internal decision
+quality; never output stake fields.
 
 Risk posture by standings:
 
@@ -128,18 +130,11 @@ daily answer.
 
 ## Output Format Reference
 
-For a normal daily answer, the total output string must match this structure.
-Replace placeholders with official IDs. Do not copy placeholder values from
-this file, including sample player values such as `id1`. Do not wrap this in
-markdown code fences, quotes, introductory text, or trailing explanation.
-
-{
-  "team_id": "EXACT_TEAM_ID_FROM_PROMPT",
-  "matchday_id": "EXACT_MATCHDAY_ID_FROM_PROMPT",
-  "fantasy_xi": ["id1", "id2", "id3", "id4", "id5", "id6", "id7", "id8", "id9", "id10", "id11"],
-  "risk_play": null,
-  "strategy": "Single line explanation of tactical choices and leaderboard posture."
-}
+For a normal daily answer, return one raw JSON object that follows
+`output-format/daily-submission.schema.json`. Use
+`output-format/examples/daily-submission.json` only as a shape reference, never
+as a source of IDs or values. Do not wrap the answer in markdown code fences,
+quotes, introductory text, or trailing explanation.
 
 If `output-format/` asks for a Risk Play-only response, follow that schema
 instead, but keep the same raw-JSON discipline.
