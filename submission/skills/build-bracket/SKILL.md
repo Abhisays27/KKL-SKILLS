@@ -18,6 +18,22 @@ Never invent teams, paths, or metadata. Do not override organizer-owned bracket
 structure. If a future matchup depends on an earlier pick, propagate only the
 team chosen through that official path.
 
+Bracket Play is separate from daily Fantasy XI and Risk Play. Bracket picks
+contribute only after bracket play opens and relevant results are known. Once
+bracket picks lock, do not assume they can be changed.
+
+Current bracket scoring reference:
+
+- Correct Round of 32 winner: +5
+- Correct Round of 16 winner: +8
+- Correct quarterfinal winner: +12
+- Correct semifinal winner: +18
+- Correct champion: +30
+
+If the bracket board includes additional matches such as a third-place match,
+follow the bracket file and organizer instructions for whether a pick is
+required and whether it scores.
+
 If the prompt is a normal daily Fantasy XI task, do not run bracket logic and
 do not omit the required daily `fantasy_xi` array.
 

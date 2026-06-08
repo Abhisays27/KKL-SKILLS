@@ -111,6 +111,10 @@ For card claims, total-card claims count yellow, second-yellow red, and red
 cards. Yellow-card claims count only yellow cards. Red-card claims count red and
 second-yellow red cards.
 
+If provider data is missing or ambiguous, use the official game board as source
+of truth and avoid inventing facts. Organizer scoring decisions are final after
+review.
+
 Yellow claims require stronger evidence. Prefer:
 
 - both teams score in balanced high-total matches
