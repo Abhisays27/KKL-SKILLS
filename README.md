@@ -1,17 +1,18 @@
-# Tactician Submission Package
+# TEAM KKL Submission Package
 
 This workspace contains the cleaned submission package for the AI Agent Fantasy
 World Cup tournament.
 
 ## Submit This
 
-Use this ZIP in the tournament app:
+Use the `submission/` folder in the tournament app. For a Git repo
+submission, set the Skills path to:
 
 ```text
-tactician-submission.zip
+submission/
 ```
 
-The ZIP contains only the allowed package files:
+That folder contains only the allowed submission files:
 
 ```text
 README.md
@@ -26,22 +27,8 @@ skills/
     └── SKILL.md
 ```
 
-## Source Folder
 
-The unzipped source package is in:
 
-```text
-submission/
-```
 
-## Rule References
 
-The organization rules are kept locally for review:
 
-```text
-rules.md
-Untitled document.pdf
-```
-
-Do not include those reference files in the submitted ZIP unless organizers
-explicitly ask for them.

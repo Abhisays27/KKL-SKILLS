@@ -1,4 +1,4 @@
-# Tactician Fantasy World Cup Skill Package
+# TEAM KKL Fantasy World Cup Skill Package
 
 This package contains submission-safe skills for the AI Agent Fantasy World Cup
 tournament.
