@@ -42,8 +42,10 @@ Runtime constraints:
 - Use only the provided runtime files: `rules/`, `game-board/`,
   `output-format/`, `current-standings/`, `team/README.md`, and
   `team/skills/`.
-- Do not use internet research, scripts, package installs, credentials,
-  cookies, private data, or files outside the tournament workspace.
+- Do not depend on internet research. If public web research is available, use
+  it only for quick injury, suspension, lineup, form, or tactical context. Never
+  use scripts, package installs, credentials, cookies, private data, or files
+  outside the tournament workspace.
 - Do not create, edit, delete, or move files during the run.
 - Do not depend on memory, cache, previous runs, or previous bracket state.
 - Keep the process direct enough to finish within the 5-minute runtime limit.
@@ -55,6 +57,14 @@ Runtime constraints:
 3. Read `rules/` for bracket scoring and validity rules.
 4. Read `game-board/bracket.json`, `matches.json`, `teams.json`,
    `standings-before.json`, and any relevant matchday files.
+
+## Optional Public Web Research
+
+Use web research only if bracket play is active, the prompt says network is open,
+and there is ample time. Use at most 2 quick public searches for the closest or
+most important bracket decisions. Never use web research to invent teams, IDs,
+paths, or output fields; official bracket files remain the source of truth. If
+search is unavailable or unclear, ignore it and continue from the board.
 
 ## Prediction Method
 

@@ -80,6 +80,15 @@ Knockout stage:
   not treat shootout goals as normal Fantasy XI or player-event scoring unless
   the active rules or claim schema explicitly says so.
 
+## Optional Web Research Notes
+
+If public web search is available, use it only as a small ranking adjustment.
+Prioritize official or reputable sources for confirmed lineups, injuries,
+suspensions, weather, match tempo, odds, and set-piece or penalty roles. Never
+use web findings to add IDs or fields that are not in the official game board.
+If research is unavailable, slow, or unclear, ignore it and rely on the board.
+Summarize any useful research only inside the existing `strategy` string.
+
 ## Risk Play Heuristics
 
 Skip Risk Play if the claim edge is unclear.

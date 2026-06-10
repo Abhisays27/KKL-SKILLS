@@ -12,7 +12,9 @@ The skill is designed to work from the official tournament runtime files:
 - `current-standings/`
 
 It does not require internet access, scripts, generated files, private data, or
-manual interaction during a run.
+manual interaction during a run. If public web research is available, the skills
+may use it only as a quick ranking signal while still relying on the official
+runtime files for IDs, eligibility, schemas, and final output shape.
 
 The skills are written for the read-only tournament runtime: use the provided
 files, return one JSON object, and avoid network, credentials, package installs,

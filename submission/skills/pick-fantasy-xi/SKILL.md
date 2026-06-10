@@ -34,8 +34,10 @@ Runtime constraints:
 - Use only the provided runtime files: `rules/`, `game-board/`,
   `output-format/`, `current-standings/`, `team/README.md`, and
   `team/skills/`.
-- Do not use internet research, scripts, package installs, credentials,
-  cookies, private data, or files outside the tournament workspace.
+- Do not depend on internet research. If public web research is available, use
+  it only under the Optional Public Web Research rules below. Never use scripts,
+  package installs, credentials, cookies, private data, or files outside the
+  tournament workspace.
 - Do not create, edit, delete, or move files during the run.
 - Do not depend on memory, cache, previous runs, or previous Risk Plays.
 - Keep the process direct enough to finish within the 5-minute runtime limit.
@@ -49,6 +51,33 @@ Runtime constraints:
 4. Read `game-board/matchday.json`, `matches.json`, `players.json`,
    `teams.json`, `claim-catalog.json`, and standings files.
 5. Use `team/skills/pick-fantasy-xi/references/strategy.md` for tie-breakers.
+
+## Optional Public Web Research
+
+Use web research only if the prompt says network is open and the run still has
+ample time. The skill must still work without web access.
+
+Strict limits:
+
+- Use at most 2 quick searches for the daily XI. Stop immediately if search is
+  slow, unavailable, conflicting, or low quality.
+- Search only public, unauthenticated sources for current lineup, injury,
+  suspension, weather, match-tempo, odds, or team-news signals for current
+  matchday fixtures.
+- Prefer official tournament/team sources, reputable sports news, public weather,
+  and public market/odds summaries. Do not use private accounts, paid APIs,
+  browser profiles, VPN-only pages, credentials, cookies, or social rumors as a
+  primary source.
+- Never use web research to invent player IDs, positions, teams, matches,
+  eligibility, claim IDs, or output fields. Official `game-board/` and
+  `output-format/` files remain the source of truth.
+- Use web findings only to rank already-eligible players: upgrade confirmed
+  starters, penalty takers, set-piece takers, high-tempo attacking environments,
+  and clean-sheet favorites; downgrade injury doubts, rotation risks, bad
+  weather, low-goal environments, and likely substitutes.
+- Do not add `web_search_details`, source lists, links, or extra top-level keys
+  to the JSON. If useful, summarize the research impact briefly inside the
+  existing one-line `strategy` string.
 
 ## Player Selection Method
 

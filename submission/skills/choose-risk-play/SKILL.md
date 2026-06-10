@@ -27,8 +27,10 @@ Runtime constraints:
 - Use only the provided runtime files: `rules/`, `game-board/`,
   `output-format/`, `current-standings/`, `team/README.md`, and
   `team/skills/`.
-- Do not use internet research, scripts, package installs, credentials,
-  cookies, private data, or files outside the tournament workspace.
+- Do not depend on internet research. If public web research is available, use
+  it only under the Optional Public Web Research rules below. Never use scripts,
+  package installs, credentials, cookies, private data, or files outside the
+  tournament workspace.
 - Do not create, edit, delete, or move files during the run.
 - Do not depend on memory, cache, previous runs, or previous Risk Plays.
 - Keep the process direct enough to finish within the 5-minute runtime limit.
@@ -42,6 +44,29 @@ Runtime constraints:
    `teams.json`, and `standings-before.json`.
 5. If current standings are provided, use them to decide whether to protect or
    chase.
+
+## Optional Public Web Research
+
+Use web research only if the prompt says network is open and the run still has
+ample time. The Risk Play decision must still work without web access.
+
+Strict limits:
+
+- Use at most 1 quick search for the preferred Risk Play fixture, or 2 searches
+  if the first result is unclear. Stop if search is slow or low quality.
+- Search only public, unauthenticated sources for current lineup, injury,
+  suspension, weather, match-tempo, odds, or card-risk signals.
+- Never use web research to invent claim IDs, match IDs, team IDs, player IDs,
+  or required fields. `claim-catalog.json`, `matches.json`, and `players.json`
+  remain the source of truth.
+- Use web findings only to adjust confidence: high-tempo or weak-defense signals
+  help goal claims; bad weather or low-goal signals help cautious Green claims;
+  confirmed attacking starters help player/team scoring claims; strong card-risk
+  signals help card claims.
+- Do not force Risk Play because web search was available. If confidence remains
+  unclear, return `risk_play: null`.
+- Do not add `web_search_details`, source links, or extra fields. If useful,
+  summarize the research impact briefly inside the existing `strategy` string.
 
 ## Decision Method
 
