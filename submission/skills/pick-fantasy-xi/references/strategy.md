@@ -14,6 +14,10 @@ Use these tie-breakers:
 4. Set-piece taker beats similar open-play creator.
 5. Forwards and attacking midfielders from high-total matches get priority.
 6. Avoid players flagged unavailable, suspended, injured, or low-minute risk.
+7. If board data or public web research confirms a player is out, suspended,
+   injured, not in the match squad, or unavailable, never select that player. If
+   a player is confirmed on the bench, avoid them unless no legal likely-starter
+   alternative exists at that position.
 
 ## Position Heuristics
 

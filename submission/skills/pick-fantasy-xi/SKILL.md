@@ -108,6 +108,15 @@ absent rather than inventing them:
 - red-card or own-goal risk: -5
 - unavailable, suspended, ineligible, or high minute risk: -10 and avoid
 
+Availability rule:
+
+- If board data or public web research confirms a player is out, suspended,
+  injured, not in the match squad, or unavailable, never select that player.
+- If a player is confirmed on the bench, avoid that player unless no legal
+  likely-starter alternative exists at the same position. Replace with the best
+  eligible likely starter at the same position, or use the Formation Repair Rule
+  if a same-position swap would make the XI illegal.
+
 When player fields are sparse, fall back to team strength, opponent weakness,
 position role, and any compact current or last World Cup metrics in the board.
 
