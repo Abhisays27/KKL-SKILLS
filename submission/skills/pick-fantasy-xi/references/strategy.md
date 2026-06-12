@@ -7,14 +7,15 @@ and goalkeeper saves. Penalties are yellow cards, red cards, and own goals.
 
 Use these tie-breakers:
 
-1. Confirmed or likely starter beats uncertain higher-ceiling player.
-2. Player with goal/assist path beats defensive-only player unless clean-sheet
+1. Confirmed or strongly projected starter beats uncertain higher-ceiling player.
+2. Current lineup/minutes evidence beats reputation or prior World Cup history.
+3. Player with goal/assist path beats defensive-only player unless clean-sheet
    probability is strong.
-3. Defender/GK from a strong favorite beats defender/GK from an even match.
-4. Set-piece taker beats similar open-play creator.
-5. Forwards and attacking midfielders from high-total matches get priority.
-6. Avoid players flagged unavailable, suspended, injured, or low-minute risk.
-7. If board data or public web research confirms a player is out, suspended,
+4. Defender/GK from a strong favorite beats defender/GK from an even match.
+5. Set-piece taker beats similar open-play creator.
+6. Forwards and attacking midfielders from high-total matches get priority.
+7. Avoid players flagged unavailable, suspended, injured, or low-minute risk.
+8. If board data or public web research confirms a player is out, suspended,
    injured, not in the match squad, or unavailable, never select that player. If
    a player is confirmed on the bench, avoid them unless no legal likely-starter
    alternative exists at that position.
@@ -27,6 +28,9 @@ Goalkeeper:
   against outfield value in a way that removes the mandatory GK slot.
 - There is no player budget. Do not settle for a cheaper or lower-quality
   goalkeeper for cost reasons.
+- Verify the current starting goalkeeper before selecting. Never choose a famous
+  or historically strong goalkeeper unless current board data or public lineup
+  context supports that they are starting.
 - Prioritize the highest clean-sheet probability first.
 - Use save upside as a secondary path when the goalkeeper faces shots but is not
   a heavy underdog.
@@ -36,6 +40,8 @@ Defenders:
 - Prioritize clean sheet plus attacking involvement.
 - Fullbacks and set-piece aerial threats beat center-backs with no attacking
   role when clean-sheet odds are similar.
+- Penalize high card-risk defenders in balanced choices; a red card can erase a
+  clean-sheet return.
 - Use 4 or 5 defenders only when multiple defenders have real clean-sheet paths.
 
 Midfielders:
@@ -51,6 +57,8 @@ Forwards:
   defensive weakness.
 - Use three forwards when three eligible forwards have strong starter and goal
   paths. Use one or two forwards when the forward pool is weak or uncertain.
+- Prefer a lower-profile forward with strong current minutes evidence over a
+  famous striker who is a bench, rotation, or late-sub risk.
 
 ## Formation Heuristics
 
@@ -87,11 +95,13 @@ Knockout stage:
 ## Optional Web Research Notes
 
 If public web search is available, use it only as a small ranking adjustment.
-Prioritize official or reputable sources for confirmed lineups, injuries,
-suspensions, weather, match tempo, odds, and set-piece or penalty roles. Never
+Check current or projected lineups first, then injuries, suspensions, weather,
+match tempo, odds, and set-piece or penalty roles. Never
 use web findings to add IDs or fields that are not in the official game board.
 If research is unavailable, slow, or unclear, ignore it and rely on the board.
-Summarize any useful research only inside the existing `strategy` string.
+Do not upgrade an unverified player because of fame or prior World Cup stats;
+current availability and starter evidence must win. Summarize any useful
+research only inside the existing `strategy` string.
 
 ## Risk Play Heuristics
 

@@ -61,6 +61,9 @@ Strict limits:
 
 - Use at most 2 quick searches for the daily XI. Stop immediately if search is
   slow, unavailable, conflicting, or low quality.
+- First search for current or projected starting lineups and availability for
+  the current matchday fixtures. Use weather, tempo, odds, or team-news searches
+  only after lineup/minutes risk has been checked.
 - Search only public, unauthenticated sources for current lineup, injury,
   suspension, weather, match-tempo, odds, or team-news signals for current
   matchday fixtures.
@@ -83,7 +86,8 @@ Strict limits:
 
 Start by removing any player who is not eligible for the current game board.
 Prefer likely starters over uncertain players because non-playing selections
-score 0.
+score 0. Current lineup and minutes security outrank name recognition, reputation,
+or prior World Cup history.
 
 Rank players by expected scoring path:
 
@@ -98,24 +102,42 @@ Rank players by expected scoring path:
 Use this practical score when the board has enough fields. Skip fields that are
 absent rather than inventing them:
 
-- confirmed starter or starter likelihood 80%+: +8
+- confirmed or verified starter, 90%+ certainty: +15
+- expected starter, 70-89% certainty: +8
 - likely 60+ minutes: +6
 - strong goal path for FWD/MID: +5
 - strong assist or set-piece path: +3
 - strong DEF/GK clean-sheet path: +4
 - GK has realistic 3+ save path: +2
+- bench risk, rotation risk, returning from injury, or likely early sub: -12
 - yellow-card risk: -2
 - red-card or own-goal risk: -5
-- unavailable, suspended, ineligible, or high minute risk: -10 and avoid
+- confirmed out, suspended, injured, not in squad, or unavailable: -50 and never select
 
 Availability rule:
 
 - If board data or public web research confirms a player is out, suspended,
   injured, not in the match squad, or unavailable, never select that player.
-- If a player is confirmed on the bench, avoid that player unless no legal
-  likely-starter alternative exists at the same position. Replace with the best
-  eligible likely starter at the same position, or use the Formation Repair Rule
-  if a same-position swap would make the XI illegal.
+- If a player is confirmed on the bench or strongly projected to start on the
+  bench, avoid that player unless no legal likely-starter alternative exists at
+  the same position. Replace with the best eligible likely starter at the same
+  position, or use the Formation Repair Rule if a same-position swap would make
+  the XI illegal.
+- For GK and FWD especially, never select a player whose only positive signal is
+  reputation, name value, or prior tournament record. Require current starter or
+  current minutes evidence.
+
+Lineup hardening protocol:
+
+- Availability, injury, suspension, squad-status, and starter/bench fields in
+  `game-board/players.json` override every statistical score, prior World Cup
+  metric, reputation signal, and web-research signal.
+- If web research is slow, sparse, or fails to confirm current lineups, do not
+  fall back to famous names. Treat unverified minutes as a risk, apply the bench
+  or rotation penalty, and prefer eligible players with clearer board or lineup
+  evidence.
+- When two players have similar upside, choose the player with the safer path to
+  starting and 60+ minutes, even if the alternative has higher historical talent.
 
 When player fields are sparse, fall back to team strength, opponent weakness,
 position role, and any compact current or last World Cup metrics in the board.
