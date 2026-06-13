@@ -97,7 +97,7 @@ Rank players by expected scoring path:
 - assist/set-piece path for creators
 - lower card and own-goal risk
 - stronger team and easier opponent
-- compact current or last World Cup metrics in `players.json`
+- compact current metrics in `players.json`; use historical metrics only as a final tie-breaker
 
 Use this practical score when the board has enough fields. Skip fields that are
 absent rather than inventing them:
@@ -109,23 +109,29 @@ absent rather than inventing them:
 - strong assist or set-piece path: +3
 - strong DEF/GK clean-sheet path: +4
 - GK has realistic 3+ save path: +2
-- bench risk, rotation risk, returning from injury, or likely early sub: -12
+- unknown or no active lineup data, with no injury or bench flag: -1
+- confirmed bench, strong bench projection, rotation risk, returning from injury, or likely early sub: -12
 - yellow-card risk: -2
 - red-card or own-goal risk: -5
-- confirmed out, suspended, injured, not in squad, or unavailable: -50 and never select
+- confirmed out, suspended, injured, not in squad, or unavailable: -100 and never select
 
 Availability rule:
 
 - If board data or public web research confirms a player is out, suspended,
   injured, not in the match squad, or unavailable, never select that player.
+- If no explicit lineup or availability signal exists, do not treat the player
+  as benched or doubtful. Keep the player as a baseline option with only the
+  small unknown-data penalty, then rank by position role, team strength,
+  opponent weakness, and current board metrics.
 - If a player is confirmed on the bench or strongly projected to start on the
   bench, avoid that player unless no legal likely-starter alternative exists at
   the same position. Replace with the best eligible likely starter at the same
   position, or use the Formation Repair Rule if a same-position swap would make
   the XI illegal.
 - For GK and FWD especially, never select a player whose only positive signal is
-  reputation, name value, or prior tournament record. Require current starter or
-  current minutes evidence.
+  reputation, name value, or prior tournament record. Require current starter,
+  current minutes evidence, or a clean Tier 2 baseline profile with no negative
+  availability flags.
 
 Lineup hardening protocol:
 
@@ -133,14 +139,17 @@ Lineup hardening protocol:
   `game-board/players.json` override every statistical score, prior World Cup
   metric, reputation signal, and web-research signal.
 - If web research is slow, sparse, or fails to confirm current lineups, do not
-  fall back to famous names. Treat unverified minutes as a risk, apply the bench
-  or rotation penalty, and prefer eligible players with clearer board or lineup
-  evidence.
+  fall back to famous names and do not treat missing data as confirmed negative
+  evidence. Apply only the small unknown-data penalty unless the board or web
+  gives a concrete bench, injury, suspension, or rotation signal. Prefer clearer
+  lineup evidence when expected value is close.
 - When two players have similar upside, choose the player with the safer path to
   starting and 60+ minutes, even if the alternative has higher historical talent.
 
 When player fields are sparse, fall back to team strength, opponent weakness,
-position role, and any compact current or last World Cup metrics in the board.
+position role, and any compact current metrics in the board. Treat prior World
+Cup or historical metrics only as final tie-breakers between otherwise similar
+players; never let historical reputation override current availability tiers.
 
 Formation preference:
 
@@ -152,6 +161,25 @@ Formation preference:
 
 Diversify only after expected value is close. Do not force diversity if it
 causes a weaker XI, but avoid overloading fragile or uncertain teams.
+
+Roster correlation guardrails:
+
+- When a slate has 3 or more distinct matches, avoid selecting 7 or more players
+  from the same fixture unless lineup certainty and expected scoring/clean-sheet
+  edge are clearly superior to the rest of the board.
+- Avoid internal conflicts where the XI stacks a GK plus 2 or more defenders, or
+  3 or more defensive players including GK, from one team while also selecting
+  multiple premium attackers or attacking mids from the opponent in the same
+  match. In that situation, choose the cleaner side of the matchup: defensive
+  clean-sheet stack or attacking ceiling, not both.
+- Conflict repair action: before output, if this self-canceling pattern exists,
+  search the other daily fixtures for Tier 1 or Tier 2 alternatives. If an
+  alternative is within 1 to 3 internal points of the conflicting player and keeps
+  the formation legal, swap the lowest-ranked conflicting player to decouple the
+  XI's upside.
+- These are soft guardrails, not hard caps. If the official board makes one
+  match clearly better and the selected players are verified starters, the XI may
+  still concentrate there.
 
 ## Formation Repair Rule
 
@@ -201,15 +229,24 @@ rank is not by itself a reason to skip Risk Play; evaluate Green claims normally
 from the board evidence. Use stake percentages only for internal decision
 quality; never output stake fields.
 
+When team points are positive and the team is outside the top tier or materially
+behind the leader, systematically evaluate every broad-event Green claim in
+`claim-catalog.json` before returning `null`. Broad Green claims such as
+`match_2plus_goals`, `goal_before_halftime`, or `match_2plus_cards` do not
+require perfect player-level lineup certainty. This is not a forced Risk Play:
+skip only when all Green claims are unsupported, unusually volatile, or tied to
+clearly low-scoring defensive match contexts. Do not lower Yellow or Red
+thresholds.
+
 Use standings posture before choosing risk:
 
 - Rank 1 to 3 or less than 10 points behind leader: choose `null` unless a
   Green claim is extremely strong.
 - Rank 4 to 10 or 10 to 20 points behind leader: Green claims are acceptable
   with clear evidence; Yellow claims require unusually strong evidence.
-- Rank 11+ or 21+ points behind leader: Yellow claims are acceptable with
-  strong evidence; Red claims require exceptional evidence and a real need for
-  variance.
+- Rank 11+ or 21+ points behind leader: actively seek the best supported
+  Green claim first; Yellow claims are acceptable with strong evidence; Red
+  claims require exceptional evidence and a real need for variance.
 - Team score at 0 or below: choose `null` because the computed stake is 0.
 
 Use a claim only when:

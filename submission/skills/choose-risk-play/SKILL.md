@@ -70,7 +70,19 @@ Strict limits:
 
 ## Decision Method
 
-Default to `null` unless the board provides clear evidence.
+Default to `null` for Yellow or Red claims unless the board provides clear
+evidence. For Green claims, first evaluate all broad-event Green options in
+`claim-catalog.json` before deciding to skip.
+
+When team points are positive and the team is outside the top tier or materially
+behind the leader, actively look for the best Green claim on multi-match slates
+before returning `null`. Prefer broad-event Green claims with multiple paths,
+such as `match_2plus_goals`, `goal_before_halftime`, or `match_2plus_cards`.
+Do not skip a broad Green claim only because individual player lineups in that
+match are unconfirmed; evaluate team strength, match tempo, scoring environment,
+and defensive vulnerability. Skip Risk Play only when all available Green claims
+are unsupported, unusually volatile, or tied to clearly low-scoring defensive
+match contexts. This does not lower the Yellow or Red thresholds.
 
 Compute the team's point gap from `game-board/standings-before.json`. If a new
 team has no prior standing, treat the starting balance as 50 points. Missing
@@ -84,9 +96,9 @@ Risk posture by standings:
   Green claim is extremely strong.
 - Rank 4 to 10 or 10 to 20 points behind leader: Green claims are acceptable
   with clear evidence; Yellow claims require unusually strong evidence.
-- Rank 11+ or 21+ points behind leader: Yellow claims are acceptable with
-  strong evidence; Red claims require exceptional evidence and a real need for
-  variance.
+- Rank 11+ or 21+ points behind leader: actively seek the best supported
+  Green claim first; Yellow claims are acceptable with strong evidence; Red
+  claims require exceptional evidence and a real need for variance.
 - Team score at 0 or below: choose `null` because the computed stake is 0.
 
 Minimum confidence thresholds:

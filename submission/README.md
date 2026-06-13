@@ -17,8 +17,8 @@ may use it only as a quick ranking signal while still relying on the official
 runtime files for IDs, eligibility, schemas, and final output shape.
 
 The skills are written for the read-only tournament runtime: use the provided
-files, return one JSON object, and avoid network, credentials, package installs,
-file writes, or previous-run state.
+files, return one JSON object, and avoid depending on network, credentials,
+package installs, file writes, or previous-run state.
 
 Included skills:
 

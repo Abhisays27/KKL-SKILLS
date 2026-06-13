@@ -15,7 +15,9 @@ Use these tie-breakers:
 5. Set-piece taker beats similar open-play creator.
 6. Forwards and attacking midfielders from high-total matches get priority.
 7. Avoid players flagged unavailable, suspended, injured, or low-minute risk.
-8. If board data or public web research confirms a player is out, suspended,
+8. Missing lineup chatter is not the same as negative evidence. Treat unknown
+   players as baseline options with a small safety penalty, not as bench risks.
+9. If board data or public web research confirms a player is out, suspended,
    injured, not in the match squad, or unavailable, never select that player. If
    a player is confirmed on the bench, avoid them unless no legal likely-starter
    alternative exists at that position.
@@ -28,9 +30,9 @@ Goalkeeper:
   against outfield value in a way that removes the mandatory GK slot.
 - There is no player budget. Do not settle for a cheaper or lower-quality
   goalkeeper for cost reasons.
-- Verify the current starting goalkeeper before selecting. Never choose a famous
-  or historically strong goalkeeper unless current board data or public lineup
-  context supports that they are starting.
+- Verify the current starting goalkeeper when that data is available. If no
+  explicit goalkeeper starter data exists, choose the baseline goalkeeper with
+  the best clean-sheet and save path rather than the most famous historical name.
 - Prioritize the highest clean-sheet probability first.
 - Use save upside as a secondary path when the goalkeeper faces shots but is not
   a heavy underdog.
@@ -72,6 +74,17 @@ Use an expected-value mindset:
 - The 60-minute bonus matters. A safe 60+ minute player often beats a high-name
   substitute or rotation risk.
 
+## Roster Correlation Notes
+
+When 3 or more matches are on the board, avoid building the whole XI around one
+fixture unless that fixture has clearly superior verified starters and scoring
+paths. Do not pair a heavy defensive stack from one team with multiple premium
+attackers from its opponent in the same match unless the board leaves no cleaner
+alternative. If a close-value alternative from another fixture is available,
+swap the lowest-ranked conflicting player to decouple the XI's upside. Prefer
+spreading close-value selections across fixtures to reduce single-match failure
+risk.
+
 ## Phase-Specific Adjustments
 
 Group stage:
@@ -98,10 +111,11 @@ If public web search is available, use it only as a small ranking adjustment.
 Check current or projected lineups first, then injuries, suspensions, weather,
 match tempo, odds, and set-piece or penalty roles. Never
 use web findings to add IDs or fields that are not in the official game board.
-If research is unavailable, slow, or unclear, ignore it and rely on the board.
-Do not upgrade an unverified player because of fame or prior World Cup stats;
-current availability and starter evidence must win. Summarize any useful
-research only inside the existing `strategy` string.
+If research is unavailable, slow, or unclear, ignore it and rely on the board;
+do not treat missing search results as bench evidence. Do not upgrade an
+unverified player because of fame or prior World Cup stats; current availability
+and starter evidence must win. Summarize any useful research only inside the
+existing `strategy` string.
 
 ## Risk Play Heuristics
 
@@ -121,11 +135,14 @@ Risk posture:
   very strong Green claim
 - rank 4 to 10 or 10 to 20 points behind leader: consider Green claims; use
   Yellow only with unusually strong evidence
-- rank 11+ or 21+ points behind leader: consider Yellow claims; use Red only
-  when the board strongly supports it
+- rank 11+ or 21+ points behind leader: actively look for the best supported
+  Green claim first; consider Yellow claims only with strong evidence; use Red
+  only when the board strongly supports it
 - team points at 0 or below: always skip because the computed stake is 0
 
-Green claims are the default when using Risk Play. Prefer:
+Green claims are the default when using Risk Play. Broad Green claims do not
+require perfect player-level lineup certainty. Evaluate every available broad
+Green before choosing `risk_play: null`. Prefer:
 
 - match has 2+ total goals
 - goal before halftime
