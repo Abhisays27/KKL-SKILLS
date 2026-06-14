@@ -33,6 +33,10 @@ Goalkeeper:
 - Verify the current starting goalkeeper when that data is available. If no
   explicit goalkeeper starter data exists, choose the baseline goalkeeper with
   the best clean-sheet and save path rather than the most famous historical name.
+- Goalkeeper selection is fixture-adjusted, not strongest-team-only. Prefer a
+  valid likely-playing GK with the best combined clean-sheet and save path. A
+  moderate favorite facing some shot volume can beat a dominant favorite whose
+  opponent is unlikely to create any saves.
 - Prioritize the highest clean-sheet probability first.
 - Use save upside as a secondary path when the goalkeeper faces shots but is not
   a heavy underdog.

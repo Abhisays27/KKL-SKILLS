@@ -99,6 +99,13 @@ Rank players by expected scoring path:
 - stronger team and easier opponent
 - compact current metrics in `players.json`; use historical metrics only as a final tie-breaker
 
+Goalkeeper selection is fixture-adjusted. Rank eligible GKs separately by
+starter certainty, clean-sheet probability, opponent goal threat, and realistic
+save volume. The best GK is often a favored goalkeeper who can keep a clean sheet
+while still facing enough shots to earn save points. Do not automatically choose
+the goalkeeper from the strongest team if another valid GK has a better combined
+clean-sheet plus save path.
+
 Use this practical score when the board has enough fields. Skip fields that are
 absent rather than inventing them:
 
